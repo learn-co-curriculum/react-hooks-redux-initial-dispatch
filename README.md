@@ -30,7 +30,7 @@ function dispatch(action){
 }
 
 function render(){
-	document.setInnerHTML = state.counter
+	document.innerHTML = state.counter
 }
 ```
 
@@ -84,7 +84,7 @@ function changeState(state, action) {
 }
 
 function render(){
-	document.setInnerHTML = state.count
+	document.innerHTML = state.count
 }
 
 dispatch({ type: '@@INIT' })
@@ -143,7 +143,7 @@ function changeState(state = { count: 0 }, action) {
 }
 
 function render(){
-	document.setInnerHTML = state.count
+	document.innerHTML = state.count
 }
 
 dispatch({type: '@@INIT'})
