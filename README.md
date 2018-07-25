@@ -147,7 +147,7 @@ function changeState(state = { count: 0 }, action) {
 ```javascript
 	dispatch({ type: '@@INIT' })
 		-> { counter: 0 }
-	dispatch({type: 'INCREASE'})
+	dispatch({type: 'INCREASE_COUNT'})
 		-> { counter: 1 }
 ```
 
