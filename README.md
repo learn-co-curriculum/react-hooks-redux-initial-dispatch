@@ -33,7 +33,7 @@ function dispatch(action){
 }
 
 function render(){
-	document.innerHTML = state.counter
+	document.innerHTML = state.count
 }
 ```
 
@@ -146,9 +146,9 @@ function changeState(state = { count: 0 }, action) {
    Now notice what happens:
 ```javascript
 	dispatch({ type: '@@INIT' })
-		-> { counter: 0 }
+		-> { count: 0 }
 	dispatch({type: 'INCREASE_COUNT'})
-		-> { counter: 1 }
+		-> { count: 1 }
 ```
 
 Ok, pretty elegant.  How did that work?  Let's take it from the top.
