@@ -9,45 +9,44 @@ In this lesson, you will learn the following:
 
 ## Dispatch an Initial Action to Render the View
 
-Currently we have built our `changeState` reducer, and the `dispatch` and
-`render` functions.  Remember that we built the `dispatch` function such that
-each time we execute it, we call the `render` function:
+Currently, we have built our `changeState()` reducer, and the `dispatch()` and
+`render()` functions.  Remember that we built the `dispatch` function such that
+each time we execute it, we call the `render()` function:
 
 ```javascript
 let state = {count: 0};
 
 function changeState(state, action){
-    switch (action.type) {
+  switch (action.type) {
 
-      case 'INCREASE_COUNT':
-        return { count: state.count + 1 }
+    case 'INCREASE_COUNT':
+      return { count: state.count + 1 }
 
-      default:
-        return state;
-    }
+    default:
+      return state;
   }
+}
 
 function dispatch(action){
-	state = changeState(state, action)
-	render()
+  state = changeState(state, action)
+  render()
 }
 
 function render(){
-	document.innerHTML = state.count
+  document.innerHTML = state.count
 }
 ```
 
-Notice that by calling `dispatch` with an action as an argument, we do render
-something on the page.  However, currently, we dispatch an action of
-`"INCREASE"` and we see the number one in our HTML, but we never see the number
-zero displayed.  One easy way to fix this is to simply call the `render`
-function at the bottom of our JavaScript. We'll choose a different approach,
-though, which is to call our `dispatch` function.  
+Notice that by calling `dispatch()` with an action as an argument, we do render
+something on the page.  However, at the moment, we dispatch an action of
+`"INCREASE"` and we see the number one in our HTML, but **we never see the number
+zero displayed**.  One easy way to fix this is to simply call the `render()`
+function at the bottom of our JavaScript code. We'll choose a different approach,
+though, and use the same `dispatch()` function.  
 
-
-Remember that our `dispatch` function also calls our `render` function.  So, if
+Remember that our `dispatch()` function also calls our `render()` function.  So, if
 we dispatch a meaningless action, our reducer will simply return the existing
-state (the `default` case in our `switch`), and then our `render` function will
+state (the `default` case in our `switch`), and then our `render()` function will
 be called.  Let's try it by dispatching an action of type `@@INIT`.
 
 ```javascript
@@ -65,30 +64,32 @@ could just as well choose something else and get the same result:
 dispatch({ type: 'beef' })
 ```
 
-The `switch` will return whatever state was passed into the `changeState`
-function. Then `render` will be called and that updated state will get applied
+The `switch` will return whatever state was passed into the `changeState()`
+function. Then `render()` will be called and that updated state will get applied
 to the the DOM.
 
 ## Dispatch an Initial Action to Set up our Initial State
 
-Now that we've seen a simple fix for setting up the view, let's see if there's a
-simple fix for setting up our state.  Notice that currently we set the initial
-value of the state at the very first line of our JavaScript with the following:
+Now that we've seen a simple fix for setting up the initial render of HTML, let's 
+see if there's a simple fix for setting up our state.  Notice that currently we set 
+the initial value of the state at the very first line of our JavaScript with the 
+following:
 
 ```js
 let state = { count: 0 };
 ```
 
-The problem with this is that we like to look to our reducer to see how to
+The problem here is that we would prefer to look to our reducer to see how to
 manage the state.  After all, our reducer returns the new state every time we
-dispatch a new action. Perhaps our reducer can also return our initial state.  
+dispatch a new action. Perhaps our reducer can also return our initial state?  
 
 Let's begin by simply declaring our state, but not assigning it to equal
-anything.  So we accordingly change the first line of our JavaScript.
+anything.  So, we accordingly change the first line of our JavaScript:
 
 ```javascript
 let state;
 ```
+
 ```javascript
 function changeState(state, action) {
 
@@ -114,19 +115,19 @@ function render(){
 dispatch({ type: '@@INIT' })
 ```
 
-We find that dispatching the action of type `@@INIT` gives us an error.
+But, we find that dispatching the action of type `@@INIT` gives us an error:
 
 `Uncaught TypeError: Cannot read property 'count' of undefined(…)`
 
 
-See that?  Our `render` function is breaking because now state starts off as
+See that?  Our `render()` function is breaking because now state starts off as
 undefined.  When we dispatch our action, it calls the reducer, which passes
 through our state whose value is undefined, and then returns the default value
 of our switch statement, which is just our undefined state.  
 
 What would be really nice is if we could say when you pass a state of
 `undefined` to our reducer, assign that value to our initial state. Luckily, ES6
-allows us to pass default arguments to functions. We can give our `changeState`
+allows us to pass default arguments to functions and we can give our `changeState()`
 reducer a default argument to do just that.  Let's change our reducer to the
 following:
 
@@ -143,7 +144,9 @@ function changeState(state = { count: 0 }, action) {
     }
   }
 ```
+
    Now notice what happens:
+
 ```javascript
 	dispatch({ type: '@@INIT' })
 		-> { count: 0 }
@@ -180,25 +183,27 @@ dispatch({type: '@@INIT'})
 ```
 
 At the top of the file, we declare but do not assign our state, so it starts off
-as undefined.  Then at the bottom the file, we dispatch an action of `'@@INIT'`.
-This calls our `dispatch` function, and passes it through our initial action.
-Dispatch calls the `changeState` reducer.  `changeState` is executed, passing
-through two local variables: state and action.  Action is defined because we
-passed `{ type: '@@INIT' }` into dispatch.  And the second argument, `state`,
-comes from the first line of our file.  However, it's not defined.
-
-So, with that initial dispatch we are really calling
+undefined.  Then at the bottom the file, we dispatch an action of `'@@INIT'`.
+This calls our `dispatch()` function, and passes it through our initial action.
+`dispatch()` calls the `changeState()` reducer.  `changeState()` is executed, passing
+through two local variables: state and action.  `action` is defined because we
+passed `{ type: '@@INIT' }` into dispatch. `state` is currently **undefined**, so, with 
+that initial dispatch we are really calling:
 
 ```js
-changeState(undefined, { type: 'INIT' })
+changeState(undefined, { type: '@@INIT' })
 ```
 
-And when we look to our `changeState` reducer, its default argument means that
-when state is undefined, it sets the state argument to `{ count: 0 }`.  Then we
-hit the last line of our reducer's switch statement, and return this state.
-Finally, when the change state reducer returns, dispatch assigns the return
-value to equal state, thus updating our state to the initial value of `{ count:
-0 }`, and the next line in dispatch renders this state in our HTML.
+Because `changeState()` now has a default argument, the `state` argument is set to 
+`{ count: 0 }`.
+
+When `changeState()` executes, the `switch` statement executes the `default` case,
+returning the value of `state`. The code `changeState(undefined, { type: '@@INIT' })` 
+_returns_  `{ count: 0 }`, 
+
+In `dispatch()`, when the `changeState()` reducer returns, dispatch assigns the return
+value to `state`, thus updating our state to the initial value of `{ count:
+0 }`. On the next line, `render()` is called, displaying `0` in our HTML.
 
 Essentially, we take advantage of our state starting off as undefined, and never
 being undefined again.  This means the reducer's default argument can be used to
