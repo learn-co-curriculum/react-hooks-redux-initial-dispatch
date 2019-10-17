@@ -1,0 +1,23 @@
+{
+  "name": "redux-initial-dispatch",
+  "version": "1.0.0",
+  "description": "A code-along aon initial dispatch",
+  "main": "js/reducer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "open index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/learn-co-curriculum/redux-initial-dispatch.git"
+  },
+  "keywords": [
+    "dispatch"
+  ],
+  "author": "flatironschool",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/learn-co-curriculum/redux-initial-dispatch/issues"
+  },
+  "homepage": "https://github.com/learn-co-curriculum/redux-initial-dispatch#readme"
+}
