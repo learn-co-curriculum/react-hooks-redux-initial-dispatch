@@ -1,4 +1,4 @@
-let state = {counter: 0};
+let state = {count: 0};
 
 function changeState(state, action){
     switch (action.type) {
@@ -15,5 +15,5 @@ function dispatch(action){
 }
 
 function render(){
-    document.setInnerHtml = state.counter
+    document.body.textContent = state.count
 }
