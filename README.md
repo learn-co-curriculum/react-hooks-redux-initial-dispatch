@@ -15,7 +15,7 @@ otherwise blank page.
 ## Dispatch an Initial Action to Render the View
 
 Currently, we have built our `changeState()` reducer, and the `dispatch()` and
-`render()` functions.  Remember that we built the `dispatch` function such that
+`render()` functions.  Remember that we built the `dispatch()` function such that
 each time we execute it, we call the `render()` function:
 
 ```javascript
@@ -71,7 +71,7 @@ dispatch({ type: 'beef' })
 
 The `switch` will return whatever state was passed into the `changeState()`
 function. Then `render()` will be called and that updated state will get applied
-to the the DOM.
+to the DOM.
 
 Now, if we want our page to display `0` when it first loads, we can just add `dispatch({ type: '@@INIT' })` at the end of the file.
 
@@ -134,7 +134,7 @@ through our state whose value is undefined, and then returns the default value
 of our switch statement, which is just our undefined state.  
 
 What would be really nice is if we could say when you pass a state of
-`undefined` to our reducer, assign that value to our initial state. Luckily, ES6
+`undefined` to our reducer, assign a value to our initial state. Luckily, ES6
 allows us to pass default arguments to functions and we can give our `changeState()`
 reducer a default argument to do just that.  Let's change our reducer to the
 following:
@@ -192,7 +192,7 @@ dispatch({type: '@@INIT'})
 
 At the top of the file, we declare but do not assign our state, so it starts off
 undefined.  Then at the bottom the file, we dispatch an action of `'@@INIT'`.
-This calls our `dispatch()` function, and passes it through our initial action.
+This calls our `dispatch()` function and passes through our initial action.
 `dispatch()` calls the `changeState()` reducer.  `changeState()` is executed, passing
 through two local variables: state and action.  `action` is defined because we
 passed `{ type: '@@INIT' }` into dispatch. `state` is currently **undefined**, so, with 
