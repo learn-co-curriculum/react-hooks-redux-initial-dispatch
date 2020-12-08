@@ -8,7 +8,7 @@ In this lesson, you will learn the following:
 - How dispatching an initial action gives an initial setup of the store's state.
 
 To follow along in this code-along, use the `src/reducer.js` file and update
-according to the Readme. Open `index.html` and try running `dispatch({type: "counter/increase"})` in the browser console. You should see a `1` appear on the
+according to the Readme. Open `index.html` and try running `dispatch({type: "counter/increment"})` in the browser console. You should see a `1` appear on the
 otherwise blank page.
 
 ## Dispatch an Initial Action to Render the View
@@ -22,7 +22,7 @@ let state = { count: 0 };
 
 function changeState(state, action) {
   switch (action.type) {
-    case "counter/increase":
+    case "counter/increment":
       return { count: state.count + 1 };
     default:
       return state;
@@ -40,7 +40,7 @@ function render() {
 ```
 
 Notice that by calling `dispatch()` with an action as an argument, we do render
-something on the page. We dispatch an action of `"counter/increase"` and we see
+something on the page. We dispatch an action of `"counter/increment"` and we see
 the number `1` in our HTML, but **we never see the number zero displayed**. One
 easy way to fix this is to simply call the `render()` function at the bottom of
 our JavaScript code, like the previous lesson. We'll choose a different
@@ -100,7 +100,7 @@ let state;
 ```javascript
 function changeState(state, action) {
   switch (action.type) {
-    case "counter/increase":
+    case "counter/increment":
       return { count: state.count + 1 };
 
     default:
@@ -140,7 +140,7 @@ reducer to the following:
 ```javascript
 function changeState(state = { count: 0 }, action) {
   switch (action.type) {
-    case "counter/increase":
+    case "counter/increment":
       return { count: state.count + 1 };
 
     default:
@@ -154,7 +154,7 @@ Now notice what happens:
 ```javascript
 dispatch({ type: "@@INIT" });
 //  => { count: 0 }
-dispatch({ type: "counter/increase" });
+dispatch({ type: "counter/increment" });
 //  => { count: 1 }
 ```
 
@@ -165,7 +165,7 @@ let state;
 
 function changeState(state = { count: 0 }, action) {
   switch (action.type) {
-    case "counter/increase":
+    case "counter/increment":
       return { count: state.count + 1 };
 
     default:
