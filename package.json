@@ -1,5 +1,5 @@
 {
-  "name": "redux-initial-dispatch",
+  "name": "react-hooks-redux-initial-dispatch",
   "version": "1.0.0",
   "description": "A code-along aon initial dispatch",
   "main": "js/reducer.js",
