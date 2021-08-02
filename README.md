@@ -221,5 +221,3 @@ state in our reducer. We set our initial state in our reducer by using a default
 argument for the state parameter. Because state is not initially defined,
 dispatching an action assigns our state to that default value, and then sets
 state as the default.
-
-<p class='util--hide'>View <a href='https://learn.co/lessons/redux-initial-dispatch'>Redux Initial Dispatch</a> on Learn.co and start learning to code for free.</p>
