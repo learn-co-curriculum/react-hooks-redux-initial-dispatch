@@ -1,15 +1,16 @@
 # Dispatching an Initial Action for Setup
 
-## Objectives
+## Learning Goals
 
-In this lesson, you will learn the following:
+- Dispatch an initial action
+- Explain how dispatching an initial action gives an initial setup of the store's state
 
-- How dispatching an initial action gives an initial render of the view.
-- How dispatching an initial action gives an initial setup of the store's state.
+## Instructions
 
 To follow along in this code-along, use the `src/reducer.js` file and update
-according to the Readme. Open `index.html` and try running `dispatch({type: "counter/increment"})` in the browser console. You should see a `1` appear on the
-otherwise blank page.
+according to the Readme. Open `index.html` and try running 
+`dispatch({type: "counter/increment"})` in the browser console. You should see 
+a `1` appear on the otherwise blank page.
 
 ## Dispatch an Initial Action to Render the View
 
