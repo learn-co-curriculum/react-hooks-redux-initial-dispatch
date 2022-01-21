@@ -3,14 +3,14 @@
 ## Learning Goals
 
 - Dispatch an initial action
-- Explain how dispatching an initial action gives an initial setup of the store's state
+- Explain how dispatching an initial action gives an initial setup of the
+  store's state
 
 ## Instructions
 
-To follow along in this code-along, use the `src/reducer.js` file and update
-according to the Readme. Open `index.html` and try running 
-`dispatch({type: "counter/increment"})` in the browser console. You should see 
-a `1` appear on the otherwise blank page.
+Use the `src/reducer.js` file to follow along in this code-along. Open
+`index.html` and try running `dispatch({type: "counter/increment"})` in the
+browser console. You should see a `1` appear on the otherwise blank page.
 
 ## Dispatch an Initial Action to Render the View
 
@@ -36,7 +36,8 @@ function dispatch(action) {
 }
 
 function render() {
-  document.body.textContent = state.count;
+  const app = document.querySelector("#app");
+  app.textContent = state.count;
 }
 ```
 
@@ -58,8 +59,8 @@ following into the browser console:
 dispatch({ type: "@@INIT" });
 ```
 
-Cool, now our HTML starts off at zero. And each time we call dispatch, the HTML
-is appropriately updated.
+Now the number displayed in the DOM starts at 0. And each time we call dispatch,
+the DOM is appropriately updated.
 
 Note that we can dispatch an action of any type, so long as it doesn't hit our
 switch statement. We dispatch an action of type `@@INIT` by convention, but you
@@ -115,7 +116,8 @@ function dispatch(action) {
 }
 
 function render() {
-  document.body.textContent = state.count;
+  const app = document.querySelector("#app");
+  app.textContent = state.count;
 }
 
 dispatch({ type: "@@INIT" });
@@ -128,13 +130,13 @@ Uncaught TypeError: Cannot read property 'count' of undefined(…)
 ```
 
 See that? Our `render()` function is breaking because now state starts off as
-undefined. When we dispatch our action, it calls the reducer, which passes
-through our state whose value is undefined, and then returns the default value
-of our switch statement, which is just our undefined state.
+`undefined`. When we dispatch our action, it calls the reducer, which passes
+through our state whose value is `undefined`, and then returns the default value
+of our switch statement, which is just our `undefined` state.
 
 What would be really nice is if we could say when you pass a state of
-`undefined` to our reducer, assign a value to our initial state. Luckily, ES6
-allows us to pass default arguments to functions and we can give our
+`undefined` to our reducer, assign a value to our initial state. Luckily,
+JavaScript allows us to pass default arguments to functions and we can give our
 `changeState()` reducer a default argument to do just that. Let's change our
 reducer to the following:
 
@@ -159,7 +161,7 @@ dispatch({ type: "counter/increment" });
 //  => { count: 1 }
 ```
 
-Ok, pretty elegant. How did that work? Let's take it from the top.
+How did that work? Let's take it from the top.
 
 ```javascript
 let state;
@@ -180,26 +182,27 @@ function dispatch(action) {
 }
 
 function render() {
-  document.body.textContent = state.count;
+  const app = document.querySelector("#app");
+  app.textContent = state.count;
 }
 
 dispatch({ type: "@@INIT" });
 ```
 
-At the top of the file, we declare but do not assign our state, so it starts off
-undefined. Then at the bottom the file, we dispatch an action of `'@@INIT'`.
-This calls our `dispatch()` function and passes through our initial action.
-`dispatch()` calls the `changeState()` reducer. `changeState()` is executed,
-passing through two local variables: state and action. `action` is defined
-because we passed `{ type: '@@INIT' }` into dispatch. `state` is currently
-**undefined**, so, with that initial dispatch we are really calling:
+At the top of the file, we declare but do not assign a value to our state, so it
+starts off undefined. Then at the bottom the file, we dispatch an action of
+`'@@INIT'`. This calls our `dispatch()` function and passes through our initial
+action. `dispatch()` calls the `changeState()` reducer. `changeState()` is
+executed, passing through two local variables: state and action. `action` is
+defined because we passed `{ type: '@@INIT' }` into dispatch. `state` is
+currently `undefined`, so, with that initial dispatch we are really calling:
 
 ```js
 changeState(undefined, { type: "@@INIT" });
 ```
 
-Because `changeState()` now has a default argument, the `state` argument is set to
-`{ count: 0 }`.
+Because `changeState()` now has a default argument, the `state` argument is set
+to `{ count: 0 }`.
 
 When `changeState()` executes, the `switch` statement executes the `default`
 case, returning the value of `state`. The code
@@ -214,7 +217,7 @@ Essentially, we take advantage of our state starting off as undefined, and never
 being undefined again. This means the reducer's default argument can be used to
 set up the initial state and never be used again.
 
-## Summary
+## Conclusion
 
 We learned that by dispatching an initial action of type `'@@INIT'` we get two
 benefits: an initial rendering of the state, and the ability to set our initial

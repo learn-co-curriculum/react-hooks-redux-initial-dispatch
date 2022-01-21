@@ -15,5 +15,6 @@ function dispatch(action) {
 }
 
 function render() {
-  document.body.textContent = state.count;
+  const app = document.querySelector("#app");
+  app.textContent = state.count;
 }
